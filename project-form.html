@@ -6,6 +6,9 @@
     <meta name="description" content="프로젝트 등록 및 기본 정보 수정">
     <title>프로젝트 등록 | 모두의 프로젝트 관리실</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" defer></script>
+    <script src="js/supabase-client.js" defer></script>
+    <script src="js/auth.js" defer></script>
     <script src="js/mock-data.js" defer></script>
     <script src="js/app.js" defer></script>
   </head>
@@ -22,6 +25,10 @@
             <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span class="nav-label">목록으로</span>
           </a>
+          <button class="btn btn-secondary btn-small hidden" type="button" data-logout>
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14 8V5H5v14h9v-3M10 12h11M18 9l3 3-3 3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="nav-label">로그아웃</span>
+          </button>
         </div>
       </div>
     </header>

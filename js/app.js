@@ -1029,14 +1029,6 @@
     fillEditor(getUser(selectedUserId));
   }
 
-  function initLogin() {
-    document.getElementById("login-form").addEventListener("submit", (event) => {
-      event.preventDefault();
-      if (!event.currentTarget.reportValidity()) return;
-      window.location.href = "index.html";
-    });
-  }
-
   function init() {
     renderCurrentUser();
     consumeFlash();
@@ -1046,7 +1038,6 @@
     if (page === "project-form") initProjectForm();
     if (page === "user-projects") initUserProjects();
     if (page === "users") initUsers();
-    if (page === "login") initLogin();
   }
 
   document.addEventListener("DOMContentLoaded", init);
