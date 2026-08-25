@@ -46,10 +46,6 @@
           </div>
           <form id="project-form">
             <div class="form-grid">
-              <div class="field span-full">
-                <label class="required" for="form-name">프로젝트명</label>
-                <input class="input" id="form-name" type="text" maxlength="80" placeholder="프로젝트 이름을 입력하세요" required>
-              </div>
               <div class="field">
                 <label class="required" for="form-type">프로젝트 유형</label>
                 <select class="select" id="form-type" required>
@@ -57,30 +53,44 @@
                   <option value="서비스 개발">서비스 개발</option>
                   <option value="콘텐츠 제작">콘텐츠 제작</option>
                 </select>
-                <p class="field-help">선택한 유형에 맞는 세부 단계가 자동 적용됩니다.</p>
+                <p class="field-help">유형을 먼저 선택하면 관리번호와 세부 단계가 적용됩니다.</p>
+              </div>
+              <div class="field">
+                <label for="form-project-number">프로젝트 관리번호</label>
+                <input class="input readonly-input" id="form-project-number" type="text" readonly aria-readonly="true">
+                <p class="field-help">유형코드·등록일·일별 순번으로 자동 부여되며 수정할 수 없습니다.</p>
+              </div>
+              <div class="field span-full">
+                <label class="required" for="form-name">프로젝트명</label>
+                <input class="input" id="form-name" type="text" maxlength="80" placeholder="프로젝트 이름을 입력하세요" required>
               </div>
               <div class="field">
                 <label class="required" for="form-status">프로젝트 상태</label>
                 <select class="select" id="form-status" required>
+                  <option value="검토">검토</option>
+                  <option value="기획">기획</option>
                   <option value="진행 중">진행 중</option>
+                  <option value="중단">중단</option>
                   <option value="완료">완료</option>
                 </select>
               </div>
               <div class="field">
-                <label class="required" for="form-planner">담당 기획자</label>
+                <label class="required" for="form-planner">관리자</label>
                 <select class="select" id="form-planner" required></select>
               </div>
-              <div class="field">
+              <div class="field span-full">
                 <label class="required" for="form-responsible">담당자</label>
                 <select class="select" id="form-responsible" required></select>
               </div>
               <div class="field">
                 <label class="required" for="form-start-date">시작일</label>
                 <input class="input" id="form-start-date" type="date" required>
+                <p class="field-help date-weekday" id="form-start-weekday"></p>
               </div>
               <div class="field">
                 <label class="required" for="form-end-date">종료 예정일</label>
                 <input class="input" id="form-end-date" type="date" required>
+                <p class="field-help date-weekday" id="form-end-weekday"></p>
               </div>
               <div class="field span-full">
                 <label for="form-notion">노션 페이지 URL</label>
@@ -88,8 +98,10 @@
                 <p class="field-help">등록한 URL은 프로젝트 상세 화면에서 새 탭으로 열립니다.</p>
               </div>
               <div class="field span-full">
-                <span class="field-label">적용될 세부 단계</span>
+                <span class="field-label">적용할 세부 단계</span>
+                <div class="stage-preview-context" id="stage-preview-context"></div>
                 <div class="chip-selector" id="type-stage-preview" aria-live="polite"></div>
+                <p class="field-help">선택한 프로젝트 유형의 세부 단계 중 현재 사용할 단계를 선택하세요.</p>
               </div>
             </div>
             <div class="form-actions">

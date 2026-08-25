@@ -26,7 +26,18 @@
     "콘텐츠 제작": ["기획", "원고", "제작", "검수", "배포"]
   };
 
+  const PROJECT_TYPE_CODES = {
+    "사업/용역 수행": "BIZ",
+    "서비스 개발": "DEV",
+    "콘텐츠 제작": "CON"
+  };
+
   const UPPER_STAGES = ["기획", "준비", "실행", "검토", "완료"];
+
+  function projectNumber(type, days, sequence) {
+    const date = dateOnly(days).replaceAll("-", "");
+    return `${PROJECT_TYPE_CODES[type]}-${date}-${String(sequence).padStart(2, "0")}`;
+  }
 
   function createInitialData() {
     return {
@@ -76,6 +87,7 @@
       projects: [
         {
           id: "project-1",
+          projectNumber: projectNumber("서비스 개발", -42, 1),
           name: "통합 고객지원 포털 구축",
           type: "서비스 개발",
           plannerId: "user-2",
@@ -84,6 +96,8 @@
           endDate: dateOnly(32),
           notionUrl: "https://www.notion.so/",
           status: "진행 중",
+          budget: 120000000,
+          note: "회원 데이터 정제 범위 협의 중",
           upperStage: "실행",
           detailStage: "개발",
           summary: "고객 문의 이력 화면과 상담원 배정 기능의 1차 개발을 마쳤습니다.",
@@ -98,6 +112,7 @@
         },
         {
           id: "project-2",
+          projectNumber: projectNumber("콘텐츠 제작", -28, 1),
           name: "2026 하반기 브랜드 캠페인",
           type: "콘텐츠 제작",
           plannerId: "user-2",
@@ -105,7 +120,9 @@
           startDate: dateOnly(-28),
           endDate: dateOnly(18),
           notionUrl: "https://www.notion.so/",
-          status: "진행 중",
+          status: "검토",
+          budget: 75000000,
+          note: "법무 검토 완료 후 최종본 확정",
           upperStage: "검토",
           detailStage: "검수",
           summary: "메인 영상 2차 편집본을 공유하고 채널별 배너 시안을 정리했습니다.",
@@ -120,6 +137,7 @@
         },
         {
           id: "project-3",
+          projectNumber: projectNumber("사업/용역 수행", -65, 1),
           name: "지역 상권 디지털 전환 지원",
           type: "사업/용역 수행",
           plannerId: "user-5",
@@ -128,6 +146,8 @@
           endDate: dateOnly(48),
           notionUrl: "https://www.notion.so/",
           status: "진행 중",
+          budget: 98000000,
+          note: "참여 점포별 현장 일정 상이",
           upperStage: "실행",
           detailStage: "사업수행",
           summary: "참여 점포 24곳의 현장 컨설팅 중 16곳을 완료했습니다.",
@@ -142,6 +162,7 @@
         },
         {
           id: "project-4",
+          projectNumber: projectNumber("서비스 개발", -74, 1),
           name: "사내 업무 자동화 고도화",
           type: "서비스 개발",
           plannerId: "user-2",
@@ -149,7 +170,9 @@
           startDate: dateOnly(-74),
           endDate: dateOnly(12),
           notionUrl: "https://www.notion.so/",
-          status: "진행 중",
+          status: "중단",
+          budget: 46000000,
+          note: "테스트 계정 권한 복구 후 재개",
           upperStage: "검토",
           detailStage: "QA",
           summary: "정산 자동화 시나리오의 통합 테스트를 진행하고 있습니다.",
@@ -164,6 +187,7 @@
         },
         {
           id: "project-5",
+          projectNumber: projectNumber("콘텐츠 제작", -15, 1),
           name: "신규 입사자 온보딩 콘텐츠",
           type: "콘텐츠 제작",
           plannerId: "user-5",
@@ -171,7 +195,9 @@
           startDate: dateOnly(-15),
           endDate: dateOnly(24),
           notionUrl: "",
-          status: "진행 중",
+          status: "기획",
+          budget: 28000000,
+          note: "인터뷰 대상자 일정 조율 중",
           upperStage: "준비",
           detailStage: "원고",
           summary: "직무 공통 과정의 구성안을 확정하고 인터뷰 원고를 작성 중입니다.",
@@ -185,6 +211,7 @@
         },
         {
           id: "project-6",
+          projectNumber: projectNumber("사업/용역 수행", -92, 1),
           name: "공공데이터 활용 성과조사",
           type: "사업/용역 수행",
           plannerId: "user-2",
@@ -193,6 +220,8 @@
           endDate: dateOnly(-4),
           notionUrl: "https://www.notion.so/",
           status: "완료",
+          budget: 110000000,
+          note: "최종 정산 및 결과보고 완료",
           upperStage: "완료",
           detailStage: "결과보고",
           summary: "최종 결과보고서 제출과 발주처 검수를 완료했습니다.",
@@ -211,6 +240,7 @@
 
   window.ProjectMock = {
     PROJECT_TYPES,
+    PROJECT_TYPE_CODES,
     UPPER_STAGES,
     createInitialData
   };

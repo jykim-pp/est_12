@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="사용자별 담당 프로젝트 정보와 수행 현황 관리">
+    <title>담당 프로젝트 관리 | 모두의 프로젝트 관리실</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/mock-data.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </head>
+  <body data-page="user-projects">
+    <header class="app-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="대시보드 홈">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-name">모두의 프로젝트 관리실</span>
+        </a>
+        <div class="header-actions">
+          <div class="user-chip" data-current-user></div>
+          <a class="btn btn-secondary btn-small" id="user-projects-back" href="index.html">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="nav-label">돌아가기</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <div class="container" id="user-projects-root">
+        <nav class="breadcrumb" aria-label="현재 위치">
+          <a href="index.html">대시보드</a><span aria-hidden="true">/</span><span>담당 프로젝트</span>
+        </nav>
+
+        <section class="page-heading" aria-labelledby="user-projects-title">
+          <div>
+            <p class="eyebrow">Assigned projects</p>
+            <h1 id="user-projects-title">담당 프로젝트 관리</h1>
+            <p class="lead" id="user-projects-description">담당 프로젝트의 정보와 수행 현황을 확인합니다.</p>
+          </div>
+        </section>
+
+        <section class="panel assigned-user-panel" id="assigned-user-profile" aria-label="사용자 정보"></section>
+        <section class="assignment-summary" id="assigned-summary" aria-label="담당 프로젝트 요약"></section>
+
+        <div class="filter-result assigned-list-heading">
+          <h2>담당 프로젝트 <span class="result-count" id="assigned-project-count">0</span></h2>
+          <span class="muted">프로젝트를 선택하면 상세 현황을 확인하고 업데이트할 수 있습니다.</span>
+        </div>
+
+        <section class="managed-projects-list" id="managed-projects-list" aria-label="담당 프로젝트 수행 현황"></section>
+      </div>
+    </main>
+    <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  </body>
+</html>

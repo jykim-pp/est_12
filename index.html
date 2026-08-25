@@ -18,6 +18,10 @@
         </a>
         <nav class="header-actions" aria-label="주요 메뉴">
           <div class="user-chip" data-current-user></div>
+          <a class="btn btn-ghost btn-small" href="user-projects.html">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H10l2 2h6.5A2.5 2.5 0 0 1 21 9.5v7A2.5 2.5 0 0 1 18.5 19h-13A2.5 2.5 0 0 1 3 16.5v-9Z" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="nav-label">담당 프로젝트</span>
+          </a>
           <a class="btn btn-ghost btn-small" href="users.html" data-admin-link>
             <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span class="nav-label">사용자 관리</span>
@@ -44,50 +48,88 @@
           </a>
         </section>
 
-        <section class="summary-grid" id="summary-grid" aria-label="프로젝트 상태 요약"></section>
-
-        <section class="filter-panel" aria-label="프로젝트 필터와 정렬">
-          <div class="field">
-            <label for="risk-filter">위험 상태</label>
-            <select class="select" id="risk-filter">
-              <option value="all">전체 상태</option>
-              <option value="정상">정상</option>
-              <option value="확인 필요">확인 필요</option>
-              <option value="지연">지연</option>
-              <option value="즉시 점검 필요">즉시 점검 필요</option>
-            </select>
+        <section class="overview-section" aria-labelledby="overview-section-title">
+          <div class="overview-tabs" role="tablist" aria-label="프로젝트 현황 기준">
+            <button class="overview-tab is-active" id="overview-section-title" type="button" role="tab" aria-selected="true" data-overview-tab="risk">위험 상태</button>
+            <button class="overview-tab" type="button" role="tab" aria-selected="false" data-overview-tab="status">프로젝트 상태</button>
+            <button class="overview-tab" type="button" role="tab" aria-selected="false" data-overview-tab="user">사용자</button>
           </div>
-          <div class="field">
-            <label for="type-filter">프로젝트 유형</label>
-            <select class="select" id="type-filter">
-              <option value="all">전체 유형</option>
-              <option value="사업/용역 수행">사업/용역 수행</option>
-              <option value="서비스 개발">서비스 개발</option>
-              <option value="콘텐츠 제작">콘텐츠 제작</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="person-filter">담당자</label>
-            <select class="select" id="person-filter">
-              <option value="all">전체 담당자</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="sort-filter">정렬</label>
-            <select class="select" id="sort-filter">
-              <option value="default">기본 순서</option>
-              <option value="risk">위험도 높은 순</option>
-            </select>
-          </div>
-          <button class="btn btn-secondary" type="button" id="reset-filters">필터 초기화</button>
+          <section class="summary-grid" id="summary-grid" aria-label="프로젝트 현황 요약" aria-live="polite"></section>
         </section>
 
-        <div class="filter-result">
-          <h2>프로젝트 <span class="result-count" id="project-count">0</span></h2>
-          <span class="muted" id="filter-summary" aria-live="polite">전체 프로젝트를 표시하고 있습니다.</span>
-        </div>
+        <section class="panel project-table-panel" aria-labelledby="project-table-title">
+          <div class="panel-header project-table-header">
+            <div>
+              <p class="panel-kicker">PROJECT LIST</p>
+              <h2 id="project-table-title">프로젝트 <span class="result-count" id="project-count">0</span></h2>
+              <p class="section-description" id="filter-summary" aria-live="polite">전체 프로젝트를 표시하고 있습니다.</p>
+            </div>
+            <button class="btn btn-secondary btn-small" type="button" id="reset-table-filters">필터 초기화</button>
+          </div>
 
-        <section class="projects-grid" id="projects-grid" aria-label="프로젝트 목록"></section>
+          <div class="project-table-wrap">
+            <table class="project-table">
+              <thead>
+                <tr>
+                  <th>유형</th>
+                  <th>프로젝트명</th>
+                  <th>담당자</th>
+                  <th>시작일</th>
+                  <th>종료일</th>
+                  <th>진행 단계</th>
+                  <th><button class="table-sort-button" id="risk-sort-button" type="button" aria-pressed="false">위험 상태 <span aria-hidden="true">↕</span></button></th>
+                  <th>예산</th>
+                  <th>비고</th>
+                </tr>
+                <tr class="project-filter-row">
+                  <th>
+                    <select id="table-type-filter" aria-label="프로젝트 유형 필터">
+                      <option value="all">전체</option>
+                      <option value="사업/용역 수행">사업/용역</option>
+                      <option value="서비스 개발">서비스</option>
+                      <option value="콘텐츠 제작">콘텐츠</option>
+                    </select>
+                  </th>
+                  <th>
+                    <select id="table-status-filter" aria-label="프로젝트 상태 필터">
+                      <option value="all">전체 상태</option>
+                      <option value="검토">검토</option>
+                      <option value="기획">기획</option>
+                      <option value="진행 중">진행 중</option>
+                      <option value="중단">중단</option>
+                      <option value="완료">완료</option>
+                    </select>
+                  </th>
+                  <th><select id="table-person-filter" aria-label="담당자 필터"><option value="all">전체</option></select></th>
+                  <th><span class="table-filter-empty">—</span></th>
+                  <th><span class="table-filter-empty">—</span></th>
+                  <th>
+                    <select id="table-stage-filter" aria-label="진행 단계 필터">
+                      <option value="all">전체</option>
+                      <option value="기획">기획</option>
+                      <option value="준비">준비</option>
+                      <option value="실행">실행</option>
+                      <option value="검토">검토</option>
+                      <option value="완료">완료</option>
+                    </select>
+                  </th>
+                  <th>
+                    <select id="table-risk-filter" aria-label="위험 상태 필터">
+                      <option value="all">전체</option>
+                      <option value="정상">정상</option>
+                      <option value="확인 필요">확인 필요</option>
+                      <option value="지연">지연</option>
+                      <option value="즉시 점검 필요">즉시 점검</option>
+                    </select>
+                  </th>
+                  <th><span class="table-filter-empty">—</span></th>
+                  <th><span class="table-filter-empty">—</span></th>
+                </tr>
+              </thead>
+              <tbody id="project-table-body"></tbody>
+            </table>
+          </div>
+        </section>
       </div>
     </main>
     <div class="toast-region" id="toast-region" aria-live="polite"></div>
