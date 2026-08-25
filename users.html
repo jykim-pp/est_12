@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="사용자 역할 및 프로젝트 접근 권한 관리">
+    <title>사용자 관리 | 모두의 프로젝트 관리실</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/mock-data.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </head>
+  <body data-page="users">
+    <header class="app-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="대시보드 홈">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span class="brand-name">모두의 프로젝트 관리실</span>
+        </a>
+        <div class="header-actions">
+          <div class="user-chip" data-current-user></div>
+          <a class="btn btn-secondary btn-small" href="index.html">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="nav-label">목록으로</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <div class="container">
+        <nav class="breadcrumb" aria-label="현재 위치">
+          <a href="index.html">대시보드</a><span aria-hidden="true">/</span><span>사용자 관리</span>
+        </nav>
+        <section class="page-heading">
+          <div>
+            <p class="eyebrow">People & access</p>
+            <h1>사용자 및 권한 관리</h1>
+            <p class="lead">사용자 역할과 확인할 수 있는 담당 프로젝트를 관리합니다.</p>
+          </div>
+          <button class="btn btn-primary" id="add-user" type="button">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M8 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M19 8v6M16 11h6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            사용자 추가
+          </button>
+        </section>
+
+        <div class="callout" id="users-permission-note"></div>
+
+        <div class="users-layout">
+          <section class="panel" aria-labelledby="user-list-title">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">MEMBERS</p>
+                <h2 id="user-list-title">사용자 목록</h2>
+              </div>
+              <span class="muted" id="user-count"></span>
+            </div>
+            <div class="table-wrap">
+              <table class="data-table">
+                <thead>
+                  <tr><th>사용자</th><th>역할</th><th>담당 프로젝트</th><th>상태</th></tr>
+                </thead>
+                <tbody id="user-table-body"></tbody>
+              </table>
+            </div>
+          </section>
+
+          <aside class="panel" aria-labelledby="user-editor-title">
+            <div class="panel-header">
+              <div>
+                <p class="panel-kicker">EDIT USER</p>
+                <h2 id="user-editor-title">사용자 정보 편집</h2>
+              </div>
+            </div>
+            <form id="user-form">
+              <input id="edit-user-id" type="hidden">
+              <div class="stack">
+                <div class="field">
+                  <label class="required" for="user-name">이름</label>
+                  <input class="input" id="user-name" type="text" maxlength="30" required>
+                </div>
+                <div class="field">
+                  <label class="required" for="user-email">이메일</label>
+                  <input class="input" id="user-email" type="email" required>
+                </div>
+                <div class="field">
+                  <label class="required" for="user-role">역할</label>
+                  <select class="select" id="user-role" required>
+                    <option value="관리자">관리자</option>
+                    <option value="기획자">기획자</option>
+                    <option value="담당자">담당자</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <span class="field-label">담당 프로젝트</span>
+                  <div class="checkbox-list" id="project-checkboxes"></div>
+                </div>
+                <div class="switch-row">
+                  <div><strong>활성 사용자</strong><div class="field-help">비활성 사용자는 담당 범위에서 제외할 수 있습니다.</div></div>
+                  <label class="switch">
+                    <span class="sr-only">활성 여부</span>
+                    <input id="user-active" type="checkbox">
+                    <span class="switch-track" aria-hidden="true"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="form-actions">
+                <button class="btn btn-primary btn-block" id="save-user" type="submit">사용자 정보 저장</button>
+              </div>
+            </form>
+          </aside>
+        </div>
+      </div>
+    </main>
+    <div class="toast-region" id="toast-region" aria-live="polite"></div>
+  </body>
+</html>
